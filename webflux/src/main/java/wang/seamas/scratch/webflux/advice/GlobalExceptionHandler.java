@@ -1,0 +1,38 @@
+package wang.seamas.scratch.webflux.advice;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ServerWebInputException;
+import wang.seamas.scratch.dto.ApiResponse;
+import wang.seamas.scratch.exception.BusinessException;
+
+import java.util.stream.Collectors;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ServerWebInputException.class)
+    public ApiResponse<Void> handleServerWebInputException(ServerWebInputException e) {
+        return ApiResponse.badRequest(e.getReason());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ApiResponse<Void> handleConstraintViolationException(ConstraintViolationException e) {
+        String message = e.getConstraintViolations().stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.joining(", "));
+        return ApiResponse.badRequest(message);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ApiResponse<Void> handleBusinessException(BusinessException e) {
+        return ApiResponse.businessError(e.getCode(), e.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ApiResponse<Void> handleException(Exception e) {
+        return ApiResponse.error(500, "Internal server error: " + e.getMessage());
+    }
+}
