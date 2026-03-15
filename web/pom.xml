@@ -12,6 +12,7 @@
     <artifactId>web</artifactId>
     <packaging>jar</packaging>
     <name>web</name>
+    <description>Spring Boot Web starter with global exception handling and response wrapping</description>
 
     <dependencies>
         <dependency>

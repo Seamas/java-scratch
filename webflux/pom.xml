@@ -12,6 +12,7 @@
     <artifactId>webflux</artifactId>
     <packaging>jar</packaging>
     <name>webflux</name>
+    <description>Spring Boot WebFlux starter with global exception handling and response wrapping</description>
 
     <dependencies>
         <dependency>

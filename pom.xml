@@ -9,15 +9,19 @@
     <packaging>pom</packaging>
 
     <name>scratch-parent</name>
+    <description>Parent POM for Java Scratch - Spring Boot web module with global exception handling and response wrapping</description>
 
-    <url/>
+    <url>https://github.com/Seamas/java-scratch</url>
     <licenses>
-        <license/>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
     </licenses>
 
     <developers>
         <developer>
-            <id>你的ID</id>
+            <id>Seamas</id>
             <name>Seamas</name>
             <email>seamas.wang@hotmail.com</email>
         </developer>
@@ -28,9 +32,9 @@
         <module>webflux</module>
     </modules>
     <scm>
-        <connection>scm:git:git://github.com/你的用户名/你的项目.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/你的用户名/你的项目.git</developerConnection>
-        <url>https://github.com/你的用户名/你的项目</url>
+        <connection>scm:git:git://github.com/Seamas/java-scratch.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:Seamas/java-scratch.git</developerConnection>
+        <url>https://github.com/Seamas/java-scratch</url>
     </scm>
 
     <properties>
@@ -63,6 +67,41 @@
                             <version>1.18.42</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+            <!-- Source 插件：生成源码 JAR（必须） -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Javadoc 插件：生成文档 JAR（必须） -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doclint>none</doclint>
                 </configuration>
             </plugin>
 
