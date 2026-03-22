@@ -4,7 +4,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import wang.seamas.scratch.web.sm.advice.SM4ExceptionHandler;
 import wang.seamas.scratch.web.sm.advice.SM4RequestAdvice;
 import wang.seamas.scratch.web.sm.advice.SM4ResponseAdvice;
@@ -20,7 +19,7 @@ import wang.seamas.scratch.web.sm.advice.SM4ResponseAdvice;
  */
 @Configuration
 @EnableConfigurationProperties(CryptoProperties.class)
-public class WebAutoConfiguration {
+public class WebSMAutoConfiguration {
 
     /**
      * 配置 SM4 请求解密 Advice
