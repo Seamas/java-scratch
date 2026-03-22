@@ -1,6 +1,8 @@
 package wang.seamas.scratch.web.advice;
 
 import org.springframework.core.MethodParameter;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -15,7 +17,18 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 
+/**
+ * 全局响应包装 Advice
+ * <p>
+ * 将所有响应包装为统一的 ApiResponse 格式
+ * 优先级最高，确保最先执行
+ * </p>
+ *
+ * @author Seamas
+ * @since 1.0.0
+ */
 @RestControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Override

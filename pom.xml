@@ -29,6 +29,7 @@
     <modules>
         <module>common</module>
         <module>web</module>
+        <module>web-sm</module>
         <module>webflux</module>
         <module>mybatis-plus-extension</module>
     </modules>
