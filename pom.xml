@@ -5,7 +5,7 @@
 
     <groupId>wang.seamas</groupId>
     <artifactId>scratch-parent</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>scratch-parent</name>
@@ -30,6 +30,7 @@
         <module>common</module>
         <module>web</module>
         <module>webflux</module>
+        <module>mybatis-plus-extension</module>
     </modules>
     <scm>
         <connection>scm:git:git://github.com/Seamas/java-scratch.git</connection>
@@ -45,6 +46,7 @@
 
         <!-- submodule override to true, if it doesn't want to be published -->
         <central.publish.skip>false</central.publish.skip>
+        <revision>1.0.1</revision>
     </properties>
 
 

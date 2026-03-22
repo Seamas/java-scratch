@@ -6,7 +6,7 @@
     <parent>
         <groupId>wang.seamas</groupId>
         <artifactId>scratch-parent</artifactId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>webflux</artifactId>
@@ -18,7 +18,6 @@
         <dependency>
             <groupId>wang.seamas</groupId>
             <artifactId>common</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
