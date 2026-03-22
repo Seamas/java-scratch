@@ -23,6 +23,9 @@ class SM2KeyUtilTest {
     void testGenerateKeyPair() {
         SM2KeyUtil.SM2KeyPair keyPair = SM2KeyUtil.generateKeyPair();
 
+        System.out.println("Private Key: " + keyPair.privateKey());
+        System.out.println("Public Key: " + keyPair.publicKey());
+
         assertNotNull(keyPair, "密钥对不应为空");
         assertNotNull(keyPair.privateKey(), "私钥不应为空");
         assertNotNull(keyPair.publicKey(), "公钥不应为空");

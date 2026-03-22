@@ -13,6 +13,28 @@
     <packaging>jar</packaging>
     <name>web-sm</name>
     <description>Spring Boot Web starter with global exception handling and response wrapping</description>
+    <url>https://github.com/Seamas/java-scratch</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>Seamas</id>
+            <name>Seamas</name>
+            <email>seamas.wang@hotmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/Seamas/java-scratch.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:Seamas/java-scratch.git</developerConnection>
+        <url>https://github.com/Seamas/java-scratch</url>
+    </scm>
 
     <dependencies>
         <dependency>
@@ -48,6 +70,13 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.17.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.42</version>
             <scope>provided</scope>
         </dependency>
 

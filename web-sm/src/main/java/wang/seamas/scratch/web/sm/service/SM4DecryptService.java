@@ -2,7 +2,7 @@ package wang.seamas.scratch.web.sm.service;
 
 import org.bouncycastle.util.encoders.Base64;
 import org.bouncycastle.util.encoders.Hex;
-import wang.seamas.scratch.web.sm.config.SM4DecryptProperties;
+import wang.seamas.scratch.web.sm.config.CryptoProperties;
 import wang.seamas.scratch.web.sm.dto.EncryptedRequest;
 import wang.seamas.scratch.web.sm.exception.SM4DecryptException;
 import wang.seamas.scratch.web.sm.util.SM2CryptoUtil;
@@ -24,9 +24,9 @@ import java.nio.charset.StandardCharsets;
  */
 public class SM4DecryptService {
 
-    private final SM4DecryptProperties properties;
+    private final CryptoProperties properties;
 
-    public SM4DecryptService(SM4DecryptProperties properties) {
+    public SM4DecryptService(CryptoProperties properties) {
         this.properties = properties;
     }
 
@@ -47,7 +47,7 @@ public class SM4DecryptService {
         }
 
         // 时间戳校验（防重放攻击）
-        if (properties.isTimestampCheckEnabled()) {
+        if (properties.getSm4().isTimestampCheckEnabled()) {
             validateTimestamp(encryptedRequest.getTimestamp());
         }
 
@@ -93,7 +93,7 @@ public class SM4DecryptService {
             // 转为十六进制字符串（SM2CryptoUtil 需要十六进制格式）
             String encryptedKeyHex = Hex.toHexString(encryptedKeyBytes);
             // SM2 解密
-            byte[] keyBytes = SM2CryptoUtil.decrypt(encryptedKeyHex, properties.getPrivateKey());
+            byte[] keyBytes = SM2CryptoUtil.decrypt(encryptedKeyHex, properties.getSm2().getPrivateKey());
             // 返回十六进制格式的密钥
             return Hex.toHexString(keyBytes);
         } catch (Exception e) {
@@ -118,7 +118,7 @@ public class SM4DecryptService {
             // 转为十六进制字符串
             String encryptedIvHex = Hex.toHexString(encryptedIvBytes);
             // SM2 解密
-            byte[] ivBytes = SM2CryptoUtil.decrypt(encryptedIvHex, properties.getPrivateKey());
+            byte[] ivBytes = SM2CryptoUtil.decrypt(encryptedIvHex, properties.getSm2().getPrivateKey());
             // 返回十六进制格式的 IV
             return Hex.toHexString(ivBytes);
         } catch (Exception e) {
@@ -173,7 +173,7 @@ public class SM4DecryptService {
         long currentTime = System.currentTimeMillis();
         long timeDiff = Math.abs(currentTime - timestamp);
 
-        if (timeDiff > properties.getTimestampWindow()) {
+        if (timeDiff > properties.getSm4().getTimestampWindow()) {
             throw new SM4DecryptException(
                     SM4DecryptException.ErrorType.REPLAY_ATTACK,
                     "请求已过期，可能存在重放攻击风险"

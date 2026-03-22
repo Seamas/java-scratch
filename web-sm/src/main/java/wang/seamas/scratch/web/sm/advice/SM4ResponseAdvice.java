@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import wang.seamas.scratch.web.sm.context.CryptoContext;
 import wang.seamas.scratch.web.sm.dto.EncryptedResponse;
@@ -24,11 +23,13 @@ import wang.seamas.scratch.web.sm.util.SM4CryptoUtil;
  * <p>
  * 执行顺序：最低优先级，确保在所有其他 ResponseBodyAdvice 之后执行
  * </p>
+ * <p>
+ * 注意：此类不使用 @RestControllerAdvice 注解，由 WebAutoConfiguration 显式配置
+ * </p>
  *
  * @author Seamas
  * @since 1.0.1
  */
-@RestControllerAdvice
 @Order(Ordered.LOWEST_PRECEDENCE)
 public class SM4ResponseAdvice implements ResponseBodyAdvice<Object> {
 

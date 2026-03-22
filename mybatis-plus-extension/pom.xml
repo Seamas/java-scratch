@@ -12,6 +12,28 @@
 
     <name>mybatis-plus-extension</name>
     <description>extensions for mybatis-plus</description>
+    <url>https://github.com/Seamas/java-scratch</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>Seamas</id>
+            <name>Seamas</name>
+            <email>seamas.wang@hotmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/Seamas/java-scratch.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:Seamas/java-scratch.git</developerConnection>
+        <url>https://github.com/Seamas/java-scratch</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

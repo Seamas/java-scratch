@@ -15,13 +15,21 @@ import wang.seamas.scratch.web.sm.exception.SM4DecryptException;
  * <p>
  * 注意：返回的 ApiResponse 会被 SM4ResponseAdvice 加密（如果是加密请求）
  * </p>
+ * <p>
+ * 注意：此类不使用 @RestControllerAdvice 注解，由 WebAutoConfiguration 显式配置
+ * </p>
  *
  * @author Seamas
  * @since 1.0.1
  */
-@RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE + 100) // 在 GlobalResponseAdvice 之后，SM4ResponseAdvice 之前
 public class SM4ExceptionHandler {
+
+    /**
+     * 默认构造函数
+     */
+    public SM4ExceptionHandler() {
+    }
 
     /**
      * 处理 SM4 解密异常

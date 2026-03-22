@@ -5,7 +5,7 @@ import org.bouncycastle.util.encoders.Hex;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wang.seamas.scratch.web.sm.config.SM4DecryptProperties;
+import wang.seamas.scratch.web.sm.config.CryptoProperties;
 import wang.seamas.scratch.web.sm.dto.EncryptedRequest;
 import wang.seamas.scratch.web.sm.exception.SM4DecryptException;
 import wang.seamas.scratch.web.sm.util.SM2CryptoUtil;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SM4DecryptServiceTest {
 
     private SM4DecryptService decryptService;
-    private SM4DecryptProperties properties;
+    private CryptoProperties properties;
     private String sm2PrivateKey;
     private String sm2PublicKey;
 
@@ -37,10 +37,10 @@ class SM4DecryptServiceTest {
         sm2PublicKey = keyPair.publicKey();
 
         // 配置属性
-        properties = new SM4DecryptProperties();
-        properties.setEnabled(true);
-        properties.setPrivateKey(sm2PrivateKey);
-        properties.setTimestampCheckEnabled(false); // 测试中关闭时间戳校验
+        properties = new CryptoProperties();
+        properties.getSm4().setEnabled(true);
+        properties.getSm2().setPrivateKey(sm2PrivateKey);
+        properties.getSm4().setTimestampCheckEnabled(false); // 测试中关闭时间戳校验
 
         decryptService = new SM4DecryptService(properties);
     }
@@ -90,7 +90,7 @@ class SM4DecryptServiceTest {
     void testDecryptWithWrongPrivateKey() {
         // 使用错误的私钥创建服务
         SM2KeyUtil.SM2KeyPair wrongKeyPair = SM2KeyUtil.generateKeyPair();
-        properties.setPrivateKey(wrongKeyPair.privateKey());
+        properties.getSm2().setPrivateKey(wrongKeyPair.privateKey());
         decryptService = new SM4DecryptService(properties);
 
         // 原始业务数据
@@ -128,8 +128,8 @@ class SM4DecryptServiceTest {
     @Test
     @DisplayName("时间戳校验 - 有效的请求")
     void testValidTimestamp() {
-        properties.setTimestampCheckEnabled(true);
-        properties.setTimestampWindow(60000); // 1分钟窗口
+        properties.getSm4().setTimestampCheckEnabled(true);
+        properties.getSm4().setTimestampWindow(60000); // 1分钟窗口
         decryptService = new SM4DecryptService(properties);
 
         String originalData = "{\"test\":\"data\"}";
@@ -146,8 +146,8 @@ class SM4DecryptServiceTest {
     @Test
     @DisplayName("时间戳校验 - 过期的请求（重放攻击）")
     void testExpiredTimestamp() {
-        properties.setTimestampCheckEnabled(true);
-        properties.setTimestampWindow(1000); // 1秒窗口
+        properties.getSm4().setTimestampCheckEnabled(true);
+        properties.getSm4().setTimestampWindow(1000); // 1秒窗口
         decryptService = new SM4DecryptService(properties);
 
         String originalData = "{\"test\":\"data\"}";
@@ -166,7 +166,7 @@ class SM4DecryptServiceTest {
     @Test
     @DisplayName("时间戳校验 - 缺少时间戳")
     void testMissingTimestamp() {
-        properties.setTimestampCheckEnabled(true);
+        properties.getSm4().setTimestampCheckEnabled(true);
         decryptService = new SM4DecryptService(properties);
 
         String originalData = "{\"test\":\"data\"}";

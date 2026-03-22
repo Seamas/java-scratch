@@ -6,9 +6,8 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
-import wang.seamas.scratch.web.sm.config.SM4DecryptProperties;
+import wang.seamas.scratch.web.sm.config.CryptoProperties;
 import wang.seamas.scratch.web.sm.context.CryptoContext;
 import wang.seamas.scratch.web.sm.dto.EncryptedRequest;
 import wang.seamas.scratch.web.sm.service.SM4DecryptService;
@@ -23,21 +22,23 @@ import java.nio.charset.StandardCharsets;
  * <p>
  * 拦截带有加密标识的请求，自动解密请求体
  * </p>
+ * <p>
+ * 注意：此类不使用 @RestControllerAdvice 注解，由 WebAutoConfiguration 显式配置
+ * </p>
  *
  * @author Seamas
  * @since 1.0.1
  */
-@RestControllerAdvice
 public class SM4RequestAdvice implements RequestBodyAdvice {
 
     private static final String ENCRYPTION_ENABLED = "true";
     private static final String ENCRYPTION_TYPE_SM4 = "SM4";
 
-    private final SM4DecryptProperties properties;
+    private final CryptoProperties properties;
     private final SM4DecryptService decryptService;
     private final ObjectMapper objectMapper;
 
-    public SM4RequestAdvice(SM4DecryptProperties properties) {
+    public SM4RequestAdvice(CryptoProperties properties) {
         this.properties = properties;
         this.decryptService = new SM4DecryptService(properties);
         this.objectMapper = new ObjectMapper();
@@ -46,7 +47,7 @@ public class SM4RequestAdvice implements RequestBodyAdvice {
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         // 如果未启用解密功能或未配置私钥，则不处理
-        if (!properties.isEnabled() || !properties.isValid()) {
+        if (!properties.getSm4().isEnabled() || !properties.getSm2().isValid()) {
             return false;
         }
         return true;
@@ -107,13 +108,13 @@ public class SM4RequestAdvice implements RequestBodyAdvice {
      */
     private boolean isEncryptionEnabled(HttpHeaders headers) {
         // 检查加密标识头
-        String encryptionEnabled = headers.getFirst(properties.getHeaderName());
+        String encryptionEnabled = headers.getFirst(properties.getSm4().getHeaderName());
         if (ENCRYPTION_ENABLED.equalsIgnoreCase(encryptionEnabled)) {
             return true;
         }
 
         // 检查加密类型头
-        String encryptionType = headers.getFirst(properties.getEncryptionTypeHeader());
+        String encryptionType = headers.getFirst(properties.getSm4().getEncryptionTypeHeader());
         if (ENCRYPTION_TYPE_SM4.equalsIgnoreCase(encryptionType)) {
             return true;
         }
