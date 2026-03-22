@@ -12,6 +12,7 @@ dist/
 target/
 build/
 *.class
+.flattened-pom.xml
 
 # dotnet项目编译目录
 bin/
