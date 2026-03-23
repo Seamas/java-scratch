@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>wang.seamas</groupId>
+        <artifactId>scratch-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>scratch-parent-bom</artifactId>
+    <packaging>pom</packaging>
+
+    <name>scratch-parent-bom</name>
+    <description>Scratch pom</description>
+    <url>https://github.com/Seamas/java-scratch</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>Seamas</id>
+            <name>Seamas</name>
+            <email>seamas.wang@hotmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/Seamas/java-scratch.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:Seamas/java-scratch.git</developerConnection>
+        <url>https://github.com/Seamas/java-scratch</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>wang.seamas</groupId>
+                <artifactId>common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>wang.seamas</groupId>
+                <artifactId>web</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>wang.seamas</groupId>
+                <artifactId>web-sm</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>wang.seamas</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${revision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
