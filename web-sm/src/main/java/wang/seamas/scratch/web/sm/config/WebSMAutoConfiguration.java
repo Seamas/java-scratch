@@ -3,10 +3,13 @@ package wang.seamas.scratch.web.sm.config;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RestController;
 import wang.seamas.scratch.web.sm.advice.SM4ExceptionHandler;
 import wang.seamas.scratch.web.sm.advice.SM4RequestAdvice;
 import wang.seamas.scratch.web.sm.advice.SM4ResponseAdvice;
+import wang.seamas.scratch.web.sm.controller.CryptoController;
 
 /**
  * Web SM 自动配置类
@@ -19,6 +22,7 @@ import wang.seamas.scratch.web.sm.advice.SM4ResponseAdvice;
  */
 @Configuration
 @EnableConfigurationProperties(CryptoProperties.class)
+@ComponentScan("wang.seamas.scratch.web.sm.controller")
 public class WebSMAutoConfiguration {
 
     /**
@@ -54,4 +58,6 @@ public class WebSMAutoConfiguration {
     public SM4ExceptionHandler sm4ExceptionHandler() {
         return new SM4ExceptionHandler();
     }
+
+
 }

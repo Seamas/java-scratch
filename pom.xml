@@ -48,7 +48,7 @@
 
         <!-- submodule override to true, if it doesn't want to be published -->
         <central.publish.skip>false</central.publish.skip>
-        <revision>1.0.4</revision>
+        <revision>1.0.6</revision>
     </properties>
 
 
