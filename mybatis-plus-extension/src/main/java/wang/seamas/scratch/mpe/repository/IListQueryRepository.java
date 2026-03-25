@@ -12,7 +12,7 @@ public interface IListQueryRepository<T> extends IBaseQueryRepository<T> {
         }
         initQueryWrapper(wrapper, queryParam);
 
-        return getMapper().selectList(wrapper);
+        return selectList(wrapper);
     }
 
     default List<T> list(Object queryParam) {

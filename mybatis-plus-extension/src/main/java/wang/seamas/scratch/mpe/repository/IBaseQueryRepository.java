@@ -10,9 +10,7 @@ import wang.seamas.scratch.utils.CommonStringUtils;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-public interface IBaseQueryRepository<T> {
-
-    BaseMapper<T> getMapper();
+public interface IBaseQueryRepository<T> extends BaseMapper<T> {
 
     default QueryWrapper<T> getQueryWrapper() {
         return new QueryWrapper<T>();

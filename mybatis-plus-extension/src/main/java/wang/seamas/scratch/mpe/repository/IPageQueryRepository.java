@@ -43,7 +43,7 @@ public interface IPageQueryRepository<T> extends IBaseQueryRepository<T> {
             }
         }
 
-        return getMapper().selectPage(pageParam, wrapper);
+        return selectPage(pageParam, wrapper);
     }
 
 
