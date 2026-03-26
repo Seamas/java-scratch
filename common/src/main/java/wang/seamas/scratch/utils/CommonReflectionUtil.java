@@ -15,7 +15,7 @@ public final class CommonReflectionUtil {
 
     public static Field[] getAllFields(Class<?> clazz) {
         if (!fieldCache.containsKey(clazz)) {
-            fieldCache.put(clazz, fetchFields(clazz.getSuperclass()));
+            fieldCache.put(clazz, fetchFields(clazz));
         }
         return fieldCache.get(clazz);
     }
